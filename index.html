@@ -104,8 +104,8 @@
     <div id="modal-content"></div>
   </div>
   <script>
-    const apiKey = 'Vn26cA8knt2E8sl0WBEWvAgWGRUf59mm';
-    const passengerInitCoordinates = [4.876935, 52.360306];
+    const apiKey = 'Vn26cA8knt2E8sl0WBEWvAgWGRUf59mm'; //API key we use on Twitch!
+    const passengerInitCoordinates = [4.876935, 52.360306]; // Can be set wherever you like.
     const routeWeight = 9;
     const routeBackgroundWeight = 12;
     const modal = document.getElementById('modal');
@@ -130,7 +130,7 @@
     const map = tt.map({
       key: apiKey,
       container: 'map',
-      center: passengerInitCoordinates,
+      center: passengerInitCoordinates, // This point will become where we set our passenger, so that the window always centers on our person waiting to be picked up.
       zoom: 13
     });
 
@@ -152,6 +152,7 @@
 
     })
 
+    // key point here is that we will be able to move and update the location & img of our passenger, and each taxi's distance will be recalculated accordingly.
     map.on('click', function (event) {
       const position = event.lngLat;
       tt.services.reverseGeocode({
@@ -180,6 +181,9 @@
         updateTaxiBatchLocations([position.lng, position.lat]);
       }
     }
+    
+    //Here we do manually write the locations of each of our "available" taxis. 
+    //The Routing will be used to coordinate which fixed taxi has the fastest ETT to our passenger, who can move onclick.
 
     function setDefaultTaxiConfig() {
       taxiConfig = [
